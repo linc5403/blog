@@ -1,4 +1,4 @@
-package club.banyuan;
+package club.banyuan.controller;
 
 import lombok.var;
 import org.springframework.stereotype.Controller;
