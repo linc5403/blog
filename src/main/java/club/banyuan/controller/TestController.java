@@ -3,15 +3,12 @@ package club.banyuan.controller;
 import javax.json.Json;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/test/{username}")
 public class TestController {
-
-    @GetMapping("/test/{username}")
+    @GetMapping
     String paraHandler (
             @PathVariable String username,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
