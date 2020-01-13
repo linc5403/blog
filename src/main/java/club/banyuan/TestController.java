@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+
 @Controller
 public class TestController {
 
@@ -28,7 +30,7 @@ public class TestController {
 
     @GetMapping("/personObj")
     @ResponseBody
-    Person getPersonObj(Person newPerson) {
+    Person getPersonObj(@Valid Person newPerson) {
         return newPerson;
     }
 }
