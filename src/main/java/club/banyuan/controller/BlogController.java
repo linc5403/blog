@@ -4,6 +4,7 @@ import club.banyuan.bean.Blog;
 import club.banyuan.bean.User;
 import club.banyuan.service.BlogService;
 import club.banyuan.service.UserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +33,10 @@ public class BlogController {
         // username - > user
         // userService -> getUserByUsername
 
-        List<Blog> blogs = blogService.getPagedBlogsByUsername(username, page, size);
+/*        List<Blog> blogs = blogService.getPagedBlogsByUsername(username, page, size);
         // username -> List<Blog> -> blogs
         // blogService -> getBlogsByUsername
         boolean hasPre = (page == 1 ? false:true);
-
         List<Blog> nextPageBlogs = blogService.getPagedBlogsByUsername(username, page+1, size);
         boolean hasNext = (nextPageBlogs.size() == 0) ? false : true;
 
@@ -44,7 +44,10 @@ public class BlogController {
         model.addAttribute("user", user);
         model.addAttribute("hasPre", hasPre);
         model.addAttribute("hasNext", hasNext);
-        model.addAttribute("page", page);
+        model.addAttribute("page", page);*/
+        PageInfo pageInfo = blogService.pageUserBlog(username, page, size);
+        model.addAttribute("user", user);
+        model.addAttribute("blogs", pageInfo);
         return "list";
     }
 }

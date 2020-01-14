@@ -2,6 +2,8 @@ package club.banyuan.service;
 
 import club.banyuan.bean.Blog;
 import club.banyuan.dao.BlogDao;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,11 @@ public class BlogService {
     public List<Blog> getPagedBlogsByUsername(String username, Integer page, Integer size) {
         Integer offset = (page-1) * size;
         return blogDao.selectBlogByUsernameWithPageInfo(username, offset, size);
+    }
+
+    public PageInfo pageUserBlog(String username, Integer page, Integer size) {
+        PageHelper.startPage(page, size);
+        List<Blog> allBlogs = blogDao.selectBlogByUsername(username);
+        return new PageInfo(allBlogs);
     }
 }

@@ -50,7 +50,7 @@
   <div class="row">
 
     <div class="col-sm-8">
-      <div class="blog-post" th:each="blog: ${blogs}">
+      <div class="blog-post" th:each="blog: ${blogs.list}">
         <h3 class="blog-post-title"><a th:text="${blog.title}" th:href="@{'/blogs/' + ${blog.id}}">"${blog.title}"</a></h3>
         <p class="blog-post-meta">2015年2月3日 标签：<a href="#">Web开发</a></p>
         <p class="blog-post-content" th:text="${blog.content}">"${blog.content}"</p>
@@ -80,8 +80,8 @@
 
       <nav>
         <ul class="pager">
-          <li th:if="${hasPre}" class="previous"><a th:href="@{'/user/'+ ${user.name} + '?page=' + ${page-1}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-          <li th:if="${hasNext}" class="next"><a th:href="@{'/user/'+ ${user.name} + '?page=' + ${page+1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+          <li th:if="${blogs.hasPreviousPage}" class="previous"><a th:href="@{'/user/'+ ${user.name} + '?page=' + ${blogs.prePage}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+          <li th:if="${blogs.hasNextPage}" class="next"><a th:href="@{'/user/'+ ${user.name} + '?page=' + ${blogs.nextPage}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
 <!--          <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>-->
 <!--          <li th:unless=${blogs.last} class="next"><a th:href="@{'/blogs?page=' + ${blogs.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>-->
         </ul>
