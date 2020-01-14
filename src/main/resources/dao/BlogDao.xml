@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.banyuan.dao.BlogDao">
+    <select id="selectBlogByUsername" resultType="club.banyuan.bean.Blog">
+        SELECT blog.* FROM (blog JOIN user ON blog.user_id = user.id)
+            WHERE user.name = #{username}
+    </select>
+</mapper>
