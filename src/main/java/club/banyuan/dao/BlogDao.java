@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface BlogDao {
     List<Blog> selectBlogByUsername(String username);
+    List<Blog> selectBlogByUsernameWithPageInfo(String username, Integer offset, Integer limit);
 }

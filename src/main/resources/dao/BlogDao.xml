@@ -6,4 +6,8 @@
         SELECT blog.* FROM (blog JOIN user ON blog.user_id = user.id)
             WHERE user.name = #{username}
     </select>
+    <select id="selectBlogByUsernameWithPageInfo" resultType="club.banyuan.bean.Blog">
+        SELECT blog.* FROM (blog JOIN user ON blog.user_id = user.id)
+            WHERE user.name = #{username} LIMIT #{limit} OFFSET #{offset}
+    </select>
 </mapper>

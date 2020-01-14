@@ -1,5 +1,10 @@
 package club.banyuan.controller;
 
+import club.banyuan.bean.Blog;
+import club.banyuan.bean.User;
+import club.banyuan.service.BlogService;
+import club.banyuan.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,20 +12,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class BlogController {
+
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private BlogService blogService;
+
     @GetMapping("/user/{username}")
     String getUserBlogs(@PathVariable String username,
                         @RequestParam(required = false, defaultValue = "1") Integer page,
                         @RequestParam(required = false, defaultValue = "10") Integer size,
                         Model model
     ) {
+        User user = userService.findUserByName(username);
         // username - > user
-        // getUserByUsername
+        // userService -> getUserByUsername
+
+        List<Blog> blogs = blogService.getPagedBlogsByUsername(username, page, size);
         // username -> List<Blog> -> blogs
-        // getBlogsByUsername
-        /*model.addAttribute("blogs", blogs);
-        model.addAttribute("user", user);*/
+        // blogService -> getBlogsByUsername
+        boolean hasPre = (page == 1 ? false:true);
+
+        List<Blog> nextPageBlogs = blogService.getPagedBlogsByUsername(username, page+1, size);
+        boolean hasNext = (nextPageBlogs.size() == 0) ? false : true;
+
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("user", user);
+        model.addAttribute("hasPre", hasPre);
+        model.addAttribute("hasNext", hasNext);
+        model.addAttribute("page", page);
         return "list";
     }
 }
