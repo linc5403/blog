@@ -32,4 +32,8 @@ public class BlogService {
         List<Blog> allBlogs = blogDao.selectBlogByUsername(username);
         return new PageInfo(allBlogs);
     }
+
+    public Blog getBlogByBlogId(Integer blogId) {
+        return blogDao.selectBlogById(blogId);
+    }
 }
