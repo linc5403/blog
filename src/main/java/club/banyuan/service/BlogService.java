@@ -36,4 +36,8 @@ public class BlogService {
     public Blog getBlogByBlogId(Integer blogId) {
         return blogDao.selectBlogById(blogId);
     }
+
+    public void createBlog(Blog blog) {
+        blogDao.insertBlog(blog);
+    }
 }
