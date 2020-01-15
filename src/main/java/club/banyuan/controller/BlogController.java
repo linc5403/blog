@@ -30,16 +30,13 @@ public class BlogController {
     }
 
     @PostMapping(value = "/blogs")
-    public String createBlog(@RequestParam String title, @RequestParam String content) {
-    // public String createBlog(@RequestParam Blog blog) {
-        Blog blog = new Blog();
-        blog.setTitle(title);
-        blog.setContent(content);
+    // public String createBlog(@RequestParam String title, @RequestParam String content) {
+    public String createBlog(Blog blog) {
         Integer userId = 1;
         blog.setUserId(userId);
+        System.out.println(blog);
         // blog -> mysql
         blogService.createBlog(blog);
-        // return redirect /blogs/{blogId}
         return "redirect:/blogs/" + blog.getId();
     }
 
