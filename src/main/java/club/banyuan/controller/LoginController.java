@@ -18,7 +18,11 @@ public class LoginController {
     UserService userService;
 
     @GetMapping
-    String showLoginHtml() {
+    String showLoginHtml(@RequestParam(required = false) String next,
+                         HttpSession session) {
+        if (next != null) {
+            session.setAttribute("NEXT_URI", next);
+        }
         return "login";
     }
 
@@ -36,7 +40,14 @@ public class LoginController {
             // 3.1 session
             session.setAttribute("CURRENT_USER", user);
             // 4. redirect
+            // 4.1 如果带有next参数，重定向到next
+            String nextUri = (String)session.getAttribute("NEXT_URI");
+            if (nextUri != null) {
+                return "redirect:" + nextUri;
+            }
+            // 4.2 不带next表示直接访问的login，那么跳转到user的controller
             return "redirect:/user/" + URLEncoder.encode(username, "UTF-8");
+            // return "redirect:" + URLEncoder.encode("/user/" + username, "UTF-8");
         }
         else {
             // login fail

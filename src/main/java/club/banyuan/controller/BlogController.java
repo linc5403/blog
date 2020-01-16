@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -25,16 +28,28 @@ public class BlogController {
     private CommentService commentService;
 
     @GetMapping(value = "/blogs/create")
-    public String showCreatePage() {
-        return "create";
+    public String showCreatePage(HttpSession session,
+                                 HttpServletRequest request) {
+        // 1. 判断用户是否已经登陆
+        User currentUser = (User)session.getAttribute("CURRENT_USER");
+        if (currentUser != null) {
+            // 展示createHtml
+            return "create";
+        }
+        else {
+            // 跳转到login
+            String currentUri = request.getRequestURI();
+            return "redirect:/login?next=" + currentUri;
+            // redirect:/login?next=/blogs/create
+        }
     }
 
     @PostMapping(value = "/blogs")
     // public String createBlog(@RequestParam String title, @RequestParam String content) {
-    public String createBlog(Blog blog) {
-        Integer userId = 1;
-        blog.setUserId(userId);
-        System.out.println(blog);
+    public String createBlog(Blog blog,
+                             HttpSession session) {
+        User currentUser = (User) session.getAttribute("CURRENT_USER");
+        blog.setUserId(currentUser.getId());
         // blog -> mysql
         blogService.createBlog(blog);
         return "redirect:/blogs/" + blog.getId();
