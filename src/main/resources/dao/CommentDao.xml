@@ -5,4 +5,12 @@
     <select id="selectCommentByBlogId" resultType="club.banyuan.bean.Comment">
         SELECT * FROM comment WHERE blog_id = #{blogId}
     </select>
+    <insert id="insertComment" parameterType="club.banyuan.bean.Comment">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO comment (content, user_id, blog_id)
+        VALUES
+        (#{content}, #{userId}, #{blogId})
+    </insert>
 </mapper>

@@ -61,21 +61,6 @@ public class BlogController {
                         Model model
     ) {
         User user = userService.findUserByName(username);
-        // username - > user
-        // userService -> getUserByUsername
-
-/*        List<Blog> blogs = blogService.getPagedBlogsByUsername(username, page, size);
-        // username -> List<Blog> -> blogs
-        // blogService -> getBlogsByUsername
-        boolean hasPre = (page == 1 ? false:true);
-        List<Blog> nextPageBlogs = blogService.getPagedBlogsByUsername(username, page+1, size);
-        boolean hasNext = (nextPageBlogs.size() == 0) ? false : true;
-
-        model.addAttribute("blogs", blogs);
-        model.addAttribute("user", user);
-        model.addAttribute("hasPre", hasPre);
-        model.addAttribute("hasNext", hasNext);
-        model.addAttribute("page", page);*/
         PageInfo pageInfo = blogService.pageUserBlog(username, page, size);
         model.addAttribute("user", user);
         model.addAttribute("blogs", pageInfo);

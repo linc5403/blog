@@ -19,4 +19,8 @@ public class CommentService {
         return commentDao.selectCommentByBlogId(blogId);
     }
 
+    public void addComment(Comment comment) {
+        commentDao.insertComment(comment.getContent(), comment.getUserId(), comment.getBlogId());
+    }
+
 }
