@@ -28,10 +28,13 @@ public class BlogController {
     private CommentService commentService;
 
     @GetMapping(value = "/blogs/create")
-    public String showCreatePage(HttpSession session,
-                                 HttpServletRequest request) {
+    public String showCreatePage() {
+        return "create";
+    }
+/*    public String showCreatePage(HttpSession session,
+                                 HttpServletRequest request) {*/
         // 1. 判断用户是否已经登陆
-        User currentUser = (User)session.getAttribute("CURRENT_USER");
+        /*User currentUser = (User)session.getAttribute("CURRENT_USER");
         if (currentUser != null) {
             // 展示createHtml
             return "create";
@@ -42,7 +45,7 @@ public class BlogController {
             return "redirect:/login?next=" + currentUri;
             // redirect:/login?next=/blogs/create
         }
-    }
+    }*/
 
     @PostMapping(value = "/blogs")
     // public String createBlog(@RequestParam String title, @RequestParam String content) {
