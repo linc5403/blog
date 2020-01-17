@@ -6,6 +6,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 public class AdminInterceptor extends HandlerInterceptorAdapter {
@@ -16,7 +17,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI();
         String uriSplit[] = uri.split("/");
         System.out.println(uriSplit);
-        String uriUsername = uriSplit[2];
+        String uriUsername = URLDecoder.decode(uriSplit[2], "UTF-8");
 
         // 2. get session's username
         User user = (User)request.getSession().getAttribute("CURRENT_USER");

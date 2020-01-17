@@ -30,7 +30,7 @@ public class LoginController {
     }
 
     @PostMapping
-    void login(
+    String login(
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam String username,
@@ -47,19 +47,26 @@ public class LoginController {
             // 4. redirect
             // 4.1 如果带有next参数，重定向到next
             String nextUri = (String)session.getAttribute("NEXT_URI");
+            // nextUri -> /admin/王二
             if (nextUri != null) {
-                String redirectUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + nextUri;
-                response.setHeader("Location", redirectUrl);
-                response.setStatus(302);
-//                return "redirect:" + URLEncoder.encode(redirectUrl, "UTF-8");
+                String [] uriSplit = nextUri.split("/");
+                String redirectUrl = "";
+                for (String i: uriSplit) {
+                    if (i.length() > 0)
+                        redirectUrl += "/" + URLEncoder.encode(i, "UTF-8");
+                }
+                session.removeAttribute("NEXT_URI");
+                return "redirect:" + redirectUrl;
+
             }
-            // 4.2 不带next表示直接访问的login，那么跳转到user的controller
-            response.sendRedirect("/user/" + URLEncoder.encode(username, "UTF-8"));
-//            return "redirect:/user/" + URLEncoder.encode(username, "UTF-8");
-            // return "redirect:" + URLEncoder.encode("/user/" + username, "UTF-8");
+            else {
+                // 4.2 不带next表示直接访问的login，那么跳转到user的controller
+                return "redirect:/user/" + URLEncoder.encode(username, "UTF-8");
+            }
         }
         else {
             // login fail
+            return "";
         }
     }
 }
