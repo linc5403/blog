@@ -43,7 +43,7 @@ public class LoginController {
             // 4.1 如果带有next参数，重定向到next
             String nextUri = (String)session.getAttribute("NEXT_URI");
             if (nextUri != null) {
-                return "redirect:" + nextUri;
+                return "redirect:" + URLEncoder.encode(nextUri, "UTF-8");
             }
             // 4.2 不带next表示直接访问的login，那么跳转到user的controller
             return "redirect:/user/" + URLEncoder.encode(username, "UTF-8");
