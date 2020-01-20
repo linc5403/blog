@@ -24,4 +24,9 @@
             VALUES
         (#{title}, #{content}, #{userId})
     </insert>
+
+    <delete id="deleteBlogById">
+        DELETE FROM blog WHERE id=#{id}
+    </delete>
+
 </mapper>

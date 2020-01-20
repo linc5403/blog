@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -83,5 +85,17 @@ public class BlogController {
         model.addAttribute("user", user);
         model.addAttribute("blogs", pageInfo);
         return "list";
+    }
+
+    @DeleteMapping("/blog/{blogId}")
+    String deleteBlog(@PathVariable Integer blogId,
+                      HttpSession session,
+                      Model model) throws UnsupportedEncodingException {
+        blogService.deleteBlogByBlogId(blogId);
+        String username = ((User)session.getAttribute("CURRENT_USER")).getName();
+        PageInfo blogs = blogService.pageUserBlog(username, 1, 10);
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("username", username);
+        return "redirect:/admin/" + URLEncoder.encode(username, "UTF-8");
     }
 }

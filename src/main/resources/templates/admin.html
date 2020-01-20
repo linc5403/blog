@@ -73,7 +73,8 @@
           <td class="blog-post-create-date" th:text="${#dates.format(blog.createdTime, 'yyyy年MM月dd日')}">"{blog.createdTime}"</td>
           <td>
             <a class="btn btn-primary blog-post-edit-btn" href="#">编辑</a>
-            <form class="blog-post-delete-form" action="#" method="post" onsubmit="return confirm('确定要删除这篇文章吗？');">
+            <form class="blog-post-delete-form" th:action="|/blog/${blog.id}|" method="post" onsubmit="return confirm('确定要删除这篇文章吗？');">
+              <input type="hidden" name="_method" value="delete">
               <button type="submit" class="btn btn-danger blog-post-delete-btn">删除</button>
             </form>
           </td>

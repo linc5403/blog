@@ -11,4 +11,5 @@ public interface BlogDao {
     List<Blog> selectBlogByUsernameWithPageInfo(String username, Integer offset, Integer limit);
     Blog selectBlogById(Integer id);
     void insertBlog(Blog blog);
+    void deleteBlogById(Integer id);
 }

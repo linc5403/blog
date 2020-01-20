@@ -40,4 +40,8 @@ public class BlogService {
     public void createBlog(Blog blog) {
         blogDao.insertBlog(blog);
     }
+
+    public void deleteBlogByBlogId(Integer blogId) {
+        blogDao.deleteBlogById(blogId);
+    }
 }
