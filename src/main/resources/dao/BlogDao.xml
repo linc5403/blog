@@ -29,4 +29,8 @@
         DELETE FROM blog WHERE id=#{id}
     </delete>
 
+    <update id="updateBlog" parameterType="club.banyuan.bean.Blog">
+        UPDATE blog SET title=#{title}, content=#{content} WHERE id=#{id}
+    </update>
+
 </mapper>

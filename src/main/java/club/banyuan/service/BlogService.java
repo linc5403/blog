@@ -44,4 +44,8 @@ public class BlogService {
     public void deleteBlogByBlogId(Integer blogId) {
         blogDao.deleteBlogById(blogId);
     }
+
+    public void updateBlog(Blog blog) {
+        blogDao.updateBlog(blog);
+    }
 }

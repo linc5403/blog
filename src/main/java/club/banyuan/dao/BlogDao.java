@@ -12,4 +12,5 @@ public interface BlogDao {
     Blog selectBlogById(Integer id);
     void insertBlog(Blog blog);
     void deleteBlogById(Integer id);
+    void updateBlog(Blog blog);
 }

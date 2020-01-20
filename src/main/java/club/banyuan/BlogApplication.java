@@ -23,6 +23,9 @@ public class BlogApplication {
         BlogDao blogDao = context.getBean(BlogDao.class);
         List<Blog> blogs = blogDao.selectBlogByUsername("aa");
         System.out.println(blogs.toString());
+        Blog blog = blogDao.selectBlogById(11);
+        blog.setContent("aaaaaaaa");
+        blogDao.updateBlog(blog);
 
 /*        Blog blog = new Blog();
         blog.setUserId(user1.getId());

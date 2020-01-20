@@ -98,4 +98,22 @@ public class BlogController {
         model.addAttribute("username", username);
         return "redirect:/admin/" + URLEncoder.encode(username, "UTF-8");
     }
+
+    // 返回edit视图
+    @GetMapping("/blogs/{blogId}/edit")
+    String showEditHtml(@PathVariable Integer blogId, Model model) {
+        // get blog by id
+        Blog blog = blogService.getBlogByBlogId(blogId);
+        model.addAttribute(blog);
+        return "edit";
+    }
+
+    // 处理put请求的controller（完全更新一篇blog）
+    @PutMapping("/blogs/{blogId}/edit")
+    String editBlog(@PathVariable Integer blogId,
+                    Blog blog) {
+        blog.setId(blogId);
+        blogService.updateBlog(blog);
+        return "redirect:/blogs/" + blogId;
+    }
 }
