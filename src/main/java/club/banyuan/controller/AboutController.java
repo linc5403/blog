@@ -11,6 +11,9 @@ import java.util.Date;
 public class AboutController {
     @GetMapping("/about")
     String getAbout() {
+        char a = 'a';
+        char c = 'a' + 'b';
+        System.out.println(c);
         return "about";
     }
 }
